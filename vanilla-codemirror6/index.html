@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>목포대학교 코딩스터디 플랫폼 코드공유module</title>
+  </head>
+  <body>
+    <div id="network-status"></div>
+    <div id="editor"></div>
+    <div id="peers"></div>
+    <!-- <div id="document"></div>
+    <div id="document-text"></div> -->
+    <button id="save-button">Save</button>
+    <script type="module" src="/src/main.ts"></script>
+    <script type="module">
+      const saveButton = document.getElementById("save-button");
+
+      saveButton.addEventListener("click", () => {
+        const editor = document.getElementById("editor");
+        const selectedText = window.getSelection().toString();
+        const text = selectedText || editor.innerText;
+        const filename = "saved_text.txt";
+        const blob = new Blob([text], { type: "text/plain" });
+
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        link.click();
+
+        URL.revokeObjectURL(link.href);
+      });
+    </script>
+  </body>
+</html>
